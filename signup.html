@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MemoryVerse</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <!-- Back to home -->
+        <div class="auth-header">
+            <a href="index.html" class="back-home">
+                <span class="back-icon">←</span>
+                Back to MemoryVerse
+            </a>
+        </div>
+
+        <!-- Sign up form -->
+        <div class="auth-card">
+            <div class="auth-logo">
+                <span class="logo-icon">✨</span>
+                <h1>MemoryVerse</h1>
+            </div>
+            
+            <div class="auth-content">
+                <h2>Create Your Account</h2>
+                <p class="auth-subtitle">Start preserving your beautiful memories today</p>
+                
+                <form id="signup-form" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            name="firstName" 
+                            required 
+                            placeholder="Enter your first name"
+                            autocomplete="given-name"
+                        >
+                        <span class="error-message" id="firstName-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                        >
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-input-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required 
+                                placeholder="Create a strong password"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="password-strength"></div>
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-input-container">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                required 
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                        <span class="error-message" id="confirmPassword-error"></span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#terms" class="link">Terms of Service</a> and <a href="#privacy" class="link">Privacy Policy</a>
+                        </label>
+                        <span class="error-message" id="terms-error"></span>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary" id="signup-btn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loader" style="display: none;">
+                            <span class="loader"></span>
+                            Creating Account...
+                        </span>
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <div class="social-auth">
+                    <button class="social-btn google-btn" onclick="signUpWithGoogle()">
+                        <span class="social-icon">🔍</span>
+                        Continue with Google
+                    </button>
+                    <button class="social-btn facebook-btn" onclick="signUpWithFacebook()">
+                        <span class="social-icon">👥</span>
+                        Continue with Facebook
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html" class="link">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div class="modal-overlay" id="success-modal" style="display: none;">
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="success-icon">🎉</div>
+                    <h2>Welcome to MemoryVerse!</h2>
+                    <p>Your account has been created successfully. You'll be redirected to sign in shortly.</p>
+                    <div class="modal-actions">
+                        <button class="primary-btn" onclick="redirectToLogin()">Continue to Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Particles Background -->
+    <div class="auth-particles" id="auth-particles"></div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/form-validation.js"></script>
+    <script>
+        // Initialize signup page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSignupForm();
+            createAuthParticles();
+        });
+
+        function initializeSignupForm() {
+            const form = document.getElementById('signup-form');
+            
+            // Real-time validation
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => validateField(input));
+                input.addEventListener('input', () => clearFieldError(input));
+                
+                // Password strength checker
+                if (input.id === 'password') {
+                    input.addEventListener('input', () => checkPasswordStrength(input.value));
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', handleSignup);
+        }
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Validate all fields
+            if (!validateForm(form)) {
+                return;
+            }
+            
+            // Show loading state
+            setButtonLoading('signup-btn', true);
+            
+            try {
+                // Simulate API call
+                await simulateSignup(data);
+                
+                // Show success modal
+                document.getElementById('success-modal').style.display = 'flex';
+                
+                // Auto-redirect after 3 seconds
+                setTimeout(() => {
+                    redirectToLogin();
+                }, 3000);
+                
+            } catch (error) {
+                showNotification('Something went wrong. Please try again.', 'error');
+                console.error('Signup error:', error);
+            } finally {
+                setButtonLoading('signup-btn', false);
+            }
+        }
+
+        async function simulateSignup(userData) {
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Store user data (in real app, this would be sent to backend)
+            const users = JSON.parse(localStorage.getItem('memoryverse_users') || '[]');
+            
+            // Check if email already exists
+            if (users.find(user => user.email === userData.email)) {
+                throw new Error('Email already exists');
+            }
+            
+            // Add new user
+            const newUser = {
+                id: Date.now().toString(),
+                firstName: userData.firstName,
+                email: userData.email,
+                password: userData.password, // In real app, this would be hashed
+                createdAt: new Date().toISOString(),
+                memories: []
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('memoryverse_users', JSON.stringify(users));
+            
+            return newUser;
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'login.html?message=signup_success';
+        }
+
+        function signUpWithGoogle() {
+            showNotification('Google signup coming soon! 🔍', 'info');
+        }
+
+        function signUpWithFacebook() {
+            showNotification('Facebook signup coming soon! 👥', 'info');
+        }
+
+        function createAuthParticles() {
+            const container = document.getElementById('auth-particles');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'auth-particle';
+                
+                const size = Math.random() * 8 + 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                
+                container.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 7000);
+            }
+            
+            // Create particles periodically
+            setInterval(createParticle, 1500);
+            
+            // Create initial particles
+            for (let i = 0; i < 8; i++) {
+                setTimeout(createParticle, i * 200);
+            }
+        }
+    </script>
+</body>
+</html>
