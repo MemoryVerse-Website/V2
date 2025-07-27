@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoryVerse - Turn Your Memories into Beautiful Digital Art</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">MemoryVerse</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <!-- Logged out state -->
+                <div class="logged-out" id="logged-out-nav">
+                    <a href="login.html" class="secondary-btn nav-login">Sign In</a>
+                    <a href="signup.html" class="cta-button">Get Started</a>
+                </div>
+                <!-- Logged in state -->
+                <div class="logged-in" id="logged-in-nav" style="display: none;">
+                    <span class="welcome-text" id="welcome-text">Welcome, User!</span>
+                    <a href="create-memory.html" class="primary-btn">Create Memory</a>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Turn Your Memories Into Beautiful Digital Art</h1>
+                    <p>Transform photos, notes, and voice messages into personalized, artistic memory books. Create, preserve, and relive your most precious moments with AI-powered storytelling.</p>
+                    <div class="hero-buttons">
+                        <!-- Dynamic buttons based on login state -->
+                        <div class="logged-out" id="logged-out-hero">
+                            <a href="signup.html" class="primary-btn">Start Creating Memories</a>
+                            <a href="#demo" class="secondary-btn">Watch Demo</a>
+                        </div>
+                        <div class="logged-in" id="logged-in-hero" style="display: none;">
+                            <a href="create-memory.html" class="primary-btn create-memory-btn">
+                                <span class="btn-icon">✨</span>
+                                Create Your Memory Book
+                            </a>
+                            <a href="#my-memories" class="secondary-btn">View My Memories</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="memory-cards">
+                        <div class="memory-card" style="--rotation: -5deg;">
+                            <div class="card-image">📸</div>
+                            <div class="card-content">
+                                <h3>Summer Adventure</h3>
+                                <p>Beautiful memories from our beach vacation...</p>
+                            </div>
+                        </div>
+                        <div class="memory-card" style="--rotation: 5deg;">
+                            <div class="card-image">🌟</div>
+                            <div class="card-content">
+                                <h3>First Date</h3>
+                                <p>The beginning of our love story...</p>
+                            </div>
+                        </div>
+                        <div class="memory-card" style="--rotation: -10deg;">
+                            <div class="card-image">🎂</div>
+                            <div class="card-content">
+                                <h3>Birthday Surprise</h3>
+                                <p>An unforgettable celebration with friends...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose MemoryVerse?</h2>
+            <p class="section-subtitle">More than just photo storage - it's your personal memory curator that brings stories to life</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>AI-Powered Design</h3>
+                    <p>Our AI automatically enhances your photos and creates stunning layouts with dreamy backgrounds and beautiful typography.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📖</span>
+                    <h3>Digital Flipbooks</h3>
+                    <p>Transform your memories into interactive digital flipbooks that feel like turning pages of a beautiful photo album.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Private & Personal</h3>
+                    <p>Your memories stay private. Share only what you want, when you want. No social media pressure, just pure nostalgia.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔔</span>
+                    <h3>Memory Reminders</h3>
+                    <p>Get beautiful notifications on anniversaries - "1 year since this adventure" - to help you relive precious moments.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3>Share Anywhere</h3>
+                    <p>Download as PDF, share on Instagram stories, or keep in your private collection. Your memories, your way.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎙️</span>
+                    <h3>Voice Memories</h3>
+                    <p>Add voice notes that become part of your story. Let AI transform your words into beautiful narrative text.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Creating beautiful memory books is as easy as 1-2-3</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Memory</h3>
+                    <p>Add photos, write a short note, or record a voice message about your special moment.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Creates Magic</h3>
+                    <p>Our AI enhances your photos, designs beautiful layouts, and crafts your story into an artistic flipbook.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Share & Preserve</h3>
+                    <p>Download, share on social media, or keep private in your memory collection. Get anniversary reminders too!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="signup">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Preserving Your Memories Today</h2>
+                <p>Join thousands of people who are turning their precious moments into beautiful, lasting memories. No more forgotten photos buried in your camera roll.</p>
+                <div class="logged-out" id="logged-out-cta">
+                    <a href="signup.html" class="primary-btn">Create Your First Memory Book</a>
+                </div>
+                <div class="logged-in" id="logged-in-cta" style="display: none;">
+                    <a href="create-memory.html" class="primary-btn">Create Another Memory Book</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">MemoryVerse</div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#support">Support</a>
+                    <a href="#about">About</a>
+                </div>
+                <p>&copy; 2024 MemoryVerse. Making memories beautiful.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth State Manager -->
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        // Initialize auth state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUIBasedOnAuthState();
+        });
+    </script>
+</body>
+</html>
