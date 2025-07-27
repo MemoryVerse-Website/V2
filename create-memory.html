@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Memory - MemoryVerse</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/create-memory.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="create-memory-page">
+    <!-- Header -->
+    <header class="create-header">
+        <nav class="container">
+            <div class="nav-left">
+                <a href="index.html" class="back-home">
+                    <span class="back-icon">←</span>
+                    <span class="logo">MemoryVerse</span>
+                </a>
+            </div>
+            <div class="nav-center">
+                <h1 class="page-title">Create Your Memory</h1>
+            </div>
+            <div class="nav-right">
+                <div class="user-info" id="user-info">
+                    <span class="user-greeting">Welcome, User</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Choose Template</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Upload Photos</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Describe Memory</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Generate & Share</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="create-main">
+        <div class="container">
+            
+            <!-- Step 1: Template Selection -->
+            <div class="step-content active" id="step-1">
+                <div class="step-header">
+                    <h2>Choose Your Memory Template</h2>
+                    <p>Select the number of photos you'd like to include in your memory book</p>
+                </div>
+                
+                <div class="template-grid">
+                    <div class="template-card" data-template="single" onclick="selectTemplate('single')">
+                        <div class="template-preview">
+                            <div class="template-layout single-layout">
+                                <div class="photo-placeholder main-photo">📸</div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h3>Single Photo</h3>
+                            <p>Perfect for capturing one special moment</p>
+                            <div class="template-features">
+                                <span class="feature">• 1 Photo</span>
+                                <span class="feature">• Focus on story</span>
+                                <span class="feature">• Minimalist design</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="dual" onclick="selectTemplate('dual')">
+                        <div class="template-preview">
+                            <div class="template-layout dual-layout">
+                                <div class="photo-placeholder">📸</div>
+                                <div class="photo-placeholder">📸</div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h3>Dual Photos</h3>
+                            <p>Compare moments or show before/after</p>
+                            <div class="template-features">
+                                <span class="feature">• 2 Photos</span>
+                                <span class="feature">• Side by side</span>
+                                <span class="feature">• Great for comparisons</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card popular" data-template="collage" onclick="selectTemplate('collage')">
+                        <div class="template-badge">Most Popular</div>
+                        <div class="template-preview">
+                            <div class="template-layout collage-layout">
+                                <div class="photo-placeholder small">📸</div>
+                                <div class="photo-placeholder small">📸</div>
+                                <div class="photo-placeholder small">📸</div>
+                                <div class="photo-placeholder small">📸</div>
+                                <div class="photo-placeholder small">📸</div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h3>Photo Collage</h3>
+                            <p>Tell a complete story with multiple photos</p>
+                            <div class="template-features">
+                                <span class="feature">• 3-5 Photos</span>
+                                <span class="feature">• Rich storytelling</span>
+                                <span class="feature">• Dynamic layouts</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button class="primary-btn" id="continue-btn-1" onclick="nextStep()" disabled>
+                        Continue to Upload Photos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Photo Upload -->
+            <div class="step-content" id="step-2">
+                <div class="step-header">
+                    <h2>Upload Your Photos</h2>
+                    <p id="upload-instruction">Upload your photos to create your memory book</p>
+                </div>
+
+                <div class="upload-container">
+                    <div class="upload-grid" id="upload-grid">
+                        <!-- Upload slots will be generated here -->
+                    </div>
+                    
+                    <div class="upload-tips">
+                        <h4>📝 Tips for better results:</h4>
+                        <ul>
+                            <li>Use high-quality photos (at least 1080p)</li>
+                            <li>Photos should be well-lit and clear</li>
+                            <li>Supported formats: JPG, PNG, WEBP</li>
+                            <li>Maximum file size: 10MB per photo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button class="secondary-btn" onclick="previousStep()">
+                        ← Back to Templates
+                    </button>
+                    <button class="primary-btn" id="continue-btn-2" onclick="nextStep()" disabled>
+                        Continue to Description
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Memory Description -->
+            <div class="step-content" id="step-3">
+                <div class="step-header">
+                    <h2>Describe Your Memory</h2>
+                    <p>Tell us about this special moment. Include dates, emotions, and thoughts.</p>
+                </div>
+
+                <div class="description-container">
+                    <div class="description-input-wrapper">
+                        <div class="text-editor" id="text-editor">
+                            <div class="editor-toolbar">
+                                <button type="button" class="toolbar-btn" onclick="formatText('bold')" title="Bold">
+                                    <strong>B</strong>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="formatText('italic')" title="Italic">
+                                    <em>I</em>
+                                </button>
+                                <button type="button" class="toolbar-btn" onclick="insertEmoji()" title="Add Emoji">
+                                    😊
+                                </button>
+                            </div>
+                            <div 
+                                class="editor-content" 
+                                contenteditable="true" 
+                                placeholder="Start writing about your memory... When was this? Who was there? How did it make you feel?"
+                                id="memory-description"
+                            ></div>
+                        </div>
+                        
+                        <div class="char-counter">
+                            <span id="char-count">0</span> / 2000 characters
+                        </div>
+                    </div>
+
+                    <div class="description-suggestions">
+                        <h4>💡 Writing prompts to get you started:</h4>
+                        <div class="suggestion-tags">
+                            <button class="suggestion-tag" onclick="addSuggestion('This was taken on ')">📅 Add date</button>
+                            <button class="suggestion-tag" onclick="addSuggestion('I was with ')">👥 Who was there</button>
+                            <button class="suggestion-tag" onclick="addSuggestion('This made me feel ')">💝 How it felt</button>
+                            <button class="suggestion-tag" onclick="addSuggestion('The best part was ')">⭐ Best moment</button>
+                            <button class="suggestion-tag" onclick="addSuggestion('I\'ll never forget ')">🌟 Unforgettable detail</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button class="secondary-btn" onclick="previousStep()">
+                        ← Back to Photos
+                    </button>
+                    <button class="primary-btn" id="continue-btn-3" onclick="nextStep()" disabled>
+                        Generate Memory Book
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Generate & Share -->
+            <div class="step-content" id="step-4">
+                <div class="step-header">
+                    <h2>Your Memory Book is Ready! 🎉</h2>
+                    <p>Here's your beautiful memory book. Download, share, or save it to your collection.</p>
+                </div>
+
+                <div class="generation-container">
+                    <!-- Loading State -->
+                    <div class="generation-loading" id="generation-loading">
+                        <div class="loading-animation">
+                            <div class="loader-circle"></div>
+                            <div class="loading-text">
+                                <h3>Creating your memory book...</h3>
+                                <p id="loading-message">Analyzing your photos...</p>
+                            </div>
+                        </div>
+                        <div class="loading-progress">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Generated Memory Book -->
+                    <div class="memory-book-result" id="memory-book-result" style="display: none;">
+                        <div class="book-preview">
+                            <div class="flipbook-container" id="flipbook-container">
+                                <!-- Generated flipbook will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="book-actions">
+                            <div class="action-group">
+                                <h4>📥 Download Options</h4>
+                                <button class="action-btn pdf-btn" onclick="downloadAsPDF()">
+                                    <span class="btn-icon">📄</span>
+                                    Download as PDF
+                                </button>
+                                <button class="action-btn images-btn" onclick="downloadAsImages()">
+                                    <span class="btn-icon">🖼️</span>
+                                    Download as Images
+                                </button>
+                            </div>
+
+                            <div class="action-group">
+                                <h4>📱 Share Options</h4>
+                                <button class="action-btn instagram-btn" onclick="shareToInstagram()">
+                                    <span class="btn-icon">📷</span>
+                                    Share to Instagram
+                                </button>
+                                <button class="action-btn link-btn" onclick="copyShareLink()">
+                                    <span class="btn-icon">🔗</span>
+                                    Copy Share Link
+                                </button>
+                            </div>
+
+                            <div class="action-group">
+                                <h4>💾 Save Options</h4>
+                                <button class="action-btn save-btn" onclick="saveToCollection()">
+                                    <span class="btn-icon">⭐</span>
+                                    Save to My Collection
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions" id="final-actions" style="display: none;">
+                    <button class="secondary-btn" onclick="createAnother()">
+                        Create Another Memory
+                    </button>
+                    <button class="primary-btn" onclick="viewCollection()">
+                        View My Collection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Emoji Picker Modal -->
+    <div class="modal-overlay" id="emoji-modal" style="display: none;">
+        <div class="modal emoji-picker-modal">
+            <div class="modal-header">
+                <h3>Choose an Emoji</h3>
+                <button class="modal-close" onclick="closeEmojiPicker()">&times;</button>
+            </div>
+            <div class="emoji-grid">
+                <button class="emoji-btn" onclick="insertEmojiText('😊')">😊</button>
+                <button class="emoji-btn" onclick="insertEmojiText('❤️')">❤️</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🎉')">🎉</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🌟')">🌟</button>
+                <button class="emoji-btn" onclick="insertEmojiText('📸')">📸</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🏖️')">🏖️</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🎂')">🎂</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🎈')">🎈</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🌺')">🌺</button>
+                <button class="emoji-btn" onclick="insertEmojiText('☀️')">☀️</button>
+                <button class="emoji-btn" onclick="insertEmojiText('🌙')">🌙</button>
+                <button class="emoji-btn" onclick="insertEmojiText('⭐')">⭐</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/create-memory.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const session = getCurrentSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user info
+            document.getElementById('user-info').querySelector('.user-greeting').textContent = 
+                `Welcome, ${session.firstName}`;
+            
+            // Initialize memory creation workflow
+            initializeMemoryCreation();
+        });
+    </script>
+</body>
+</html>
